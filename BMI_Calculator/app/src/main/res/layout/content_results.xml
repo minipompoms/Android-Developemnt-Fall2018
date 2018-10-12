@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ResultsActivity"
+    tools:showIn="@layout/activity_results">
+
+    <TextView
+        android:id="@+id/tv_height"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Height: " />
+
+    <TextView
+        android:id="@+id/tv_weight"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_height"
+        android:layout_centerHorizontal="true"
+        android:text="Weight: " />
+
+    <TextView
+        android:id="@+id/tv_BMI"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_weight"
+        android:layout_centerHorizontal="true"
+        android:text="BMI Group: " />
+
+    <TextView
+        android:id="@+id/tv_BMI_Group"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_BMI"
+        android:layout_centerHorizontal="true"
+        android:text="BMI Group: " />
+</RelativeLayout>
