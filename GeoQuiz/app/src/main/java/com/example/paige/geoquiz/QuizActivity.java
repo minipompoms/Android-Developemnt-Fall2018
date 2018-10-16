@@ -21,7 +21,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
-
+    private static final String ANSWER_INDEX = "index";
 
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_australia, true),
@@ -32,6 +32,8 @@ public class QuizActivity extends AppCompatActivity {
             new Question(R.string.question_asia, true),
     };
 
+    private boolean [] mAnswerStatus = new boolean[mQuestionBank.length];
+
     private int mCurrentIndex = 0;
 
     @Override
@@ -39,9 +41,9 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_quiz);
-
         if(savedInstanceState != null){
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+            mAnswerStatus = savedInstanceState.getBooleanArray(ANSWER_INDEX);
         }
         mQuestionTextView = findViewById(R.id.question_text_view);
         mTrueButton = findViewById(R.id.true_button);
@@ -102,7 +104,10 @@ public class QuizActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
+
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        savedInstanceState.putBooleanArray(ANSWER_INDEX, mAnswerStatus);
+
     }
     @Override
     public void onStop() {
@@ -120,6 +125,8 @@ public class QuizActivity extends AppCompatActivity {
     private void updateQuestion() {
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(question);
+        mFalseButton.setEnabled(!mAnswerStatus[mCurrentIndex]);
+        mTrueButton.setEnabled(!mAnswerStatus[mCurrentIndex]);
     }
 
     @Override
@@ -137,10 +144,15 @@ public class QuizActivity extends AppCompatActivity {
         int messageResId;
         if (userPressedTrue == answerIsTrue) {
             messageResId = R.string.correct_toast;
+            mAnswerStatus[mCurrentIndex] = true;
+            mTrueButton.setEnabled(false);
+            mFalseButton.setEnabled(false);
         } else {
             messageResId = R.string.incorrect_toast;
         }
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
                 .show();
     }
+
+
 }
