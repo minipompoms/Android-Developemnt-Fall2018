@@ -7,4 +7,11 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item android:id="@+id/start"
+        android:title="Start"
+        android:orderInCategory="1"></item>
+    <item
+        android:id="@+id/decel"
+        android:title="Decelerate!"
+        android:orderInCategory="2"></item>
 </menu>

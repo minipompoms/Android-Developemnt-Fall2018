@@ -1,3 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="FourteenPt">14pt</dimen>
+    <dimen name="TenPixels">10px</dimen>
 </resources>

@@ -10,6 +10,21 @@ import android.widget.TextView;
 
 public class ResultsActivity extends AppCompatActivity {
 
+    BMICalc bmiCalc;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String toJSON = BMICalc.getJSONStringFromObject(bmiCalc);
+        outState.putString("BMI", toJSON);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        bmiCalc = BMICalc.getObjectFromJSONString(savedInstanceState.getString("BMI"));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +44,7 @@ public class ResultsActivity extends AppCompatActivity {
         tv_BMI_Group = findViewById(R.id.tv_BMI_Group);
 
         if(extras != null){
-            BMICalc bmiCalc = BMICalc.getObjectFromJSONString(extras.getString("BMI"));
+            bmiCalc = BMICalc.getObjectFromJSONString(extras.getString("BMI"));
             tv_height.setText(tv_height.getText().toString()+ bmiCalc.getHeight());
             tv_weight.setText(tv_weight.getText().toString() + bmiCalc.getWeight());
             tv_BMI.setText(tv_BMI.getText().toString() + bmiCalc.getBMI());

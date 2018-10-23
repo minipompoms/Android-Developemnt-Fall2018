@@ -1,5 +1,7 @@
 package com.example.paige.myapplication;
 
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,8 +11,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    int repTimes;
 
     private static final String DEBUG_TAG= "MyFirstAppLogging";
     @Override
@@ -30,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
 
     }
 
@@ -60,4 +69,32 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public String getFlavor(int index){
+        String[] aFlavors = getResources().getStringArray(R.array.flavors);
+        return aFlavors[index];
+    }
+
+    public boolean getMode(){
+        boolean isAdvancedMode = getResources().getBoolean(R.bool.isAdvancedFeaturesEnabled);
+        return isAdvancedMode;
+    }
+
+
+
+    public void setRepTimes(){
+        repTimes = getResources().getInteger(R.integer.numTimesToRepeat);
+    }
+
+    XmlResourceParser myPets = getResources().getXml(R.xml.my_pets);
+
+    //TextView txt = (TextView)findViewById(R.id.TextView01);
+ /*   public void animate(){
+        ImageView flagImageView =
+                (ImageView) findViewById(R.id.ImageView01);
+        flagImageView.setImageResource(R.drawable.flag);
+        Animation an = AnimationUtils.loadAnimation(this, R.anim.spin);
+        flagImageView.startAnimation(an);
+    }
+*/
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pets>
+    <pet name="Bit" type="Bunny"/>
+    <pet name="Nibble" type = "Bunny"/>
+    <pet name = "Stack" type="Bunny"/>
+    <pet name = "Sashimi" type= "Fish"/>
+    <pet name="Kiwi" type="Lovebird"/>
+</pets>

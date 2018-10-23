@@ -1,4 +1,23 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="action_settings">Settings</string>
+
+    <plurals name="quantityOfGeese">
+        <item quantity="one">You caught a goose!</item>
+        <item quantity="other">You caught %d geese!</item>
+    </plurals>
+
+    <string-array name="flavors">
+        <item>Vanilla</item>
+        <item>Chocolate</item>
+        <item>Strawberry</item>
+        <item>Coffee</item>
+        <item>Mocha</item>
+    </string-array>
+
+    <string name="chicken_soup">Chicken Noodle</string>
+    <string name="broccoli_soup">Broccoli Cheese</string>
+    <string name="vegetable_soup">Vegetable</string>
+
+
 </resources>
