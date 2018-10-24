@@ -1,12 +1,19 @@
 package com.example.paige.tipcalculator.activities;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +27,7 @@ import com.example.paige.tipcalculator.classses.TipCalculator;
 import com.example.paige.tipcalculator.classses.Utils;
 
 import static com.example.paige.tipcalculator.classses.Utils.sREQUEST_CODE_LOCATION_PERMISSION;
+import static com.example.paige.tipcalculator.classses.Utils.sREQUEST_CODE_SETTINGS;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -60,11 +68,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate (Bundle savedInstanceState)
     {
-        
         setDefaultValuesForPreferences ();                      // Set defaults before restoring
         restorePreferences ();                                  // This will set mUseNightMode
         Utils.getLocationPermission (this,
                 sREQUEST_CODE_LOCATION_PERMISSION);  // get actual sunset
+
+        Log.d("NIGHT_MODE", "PERMISSION GRANTED ?" +
+                (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED));
+
+
         AppCompatDelegate.setDefaultNightMode (mUseNightMode ?
                 AppCompatDelegate.MODE_NIGHT_AUTO :
                 AppCompatDelegate.MODE_NIGHT_NO);
@@ -79,15 +93,10 @@ public class MainActivity extends AppCompatActivity
     private void setupContent(Bundle savedInstanceState) {
     }
 
-    private void setupContent(){
-        
-    }
 
     private void setDefaultValuesForPreferences() {
     }
 
-    private void restorePreferences() {
-    }
 
     private void setupToolbar ()
     {
@@ -113,6 +122,31 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater ().inflate (R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId ();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected (item);
+    }
+
+
     @Override
     public void onRequestPermissionsResult (int requestCode, @NonNull String[] permissions,
                                             @NonNull int[] grantResults)
@@ -128,4 +162,71 @@ public class MainActivity extends AppCompatActivity
             super.onRequestPermissionsResult (requestCode, permissions, grantResults);
         }
     }
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == sREQUEST_CODE_SETTINGS) {
+            restorePreferences ();
+            applyPreferences ();
+        }
+        else {
+            super.onActivityResult (requestCode, resultCode, data);
+        }
+    }
+
+    private void restorePreferences ()
+    {
+        String currentKey;
+        String currentDefaultValue;
+
+        // Get handle to custom preferences (not from settings menu)
+        // Used for persisting state to storage
+
+        // First, get handle to user settings/preferences
+        SharedPreferences defaultSharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences (getApplicationContext ());
+
+        // Show Background Picture Preference
+        currentKey = getString (R.string.showBackgroundKey);
+        mUsePicBackground = defaultSharedPreferences.getBoolean (currentKey, true);
+
+        // Use Night Mode Preference
+        currentKey = getString (R.string.useAutoNightModeKey);
+        mUseNightMode = defaultSharedPreferences.getBoolean (currentKey, true);
+
+        // Use Auto-Calculate Preference
+        currentKey = getString (R.string.useAutoCalculateKey);
+        mUseAutoCalculate = defaultSharedPreferences.getBoolean (currentKey, true);
+
+        // Default Tax Percentage Preference
+        currentKey = getString (R.string.defaultTaxPercentageKey);
+        currentDefaultValue = getString (R.string.defaultTaxPercentageDefaultValue);
+
+        mDefaultTaxPercentage = Double.parseDouble (
+                defaultSharedPreferences.getString (currentKey, currentDefaultValue));
+
+        // Default Tip Percentage Preference
+        currentKey = getString (R.string.defaultTipPercentageKey);
+        currentDefaultValue = getString (R.string.defaultTipPercentageDefaultValue);
+
+        mDefaultTipPercentage = Double.parseDouble (
+                defaultSharedPreferences.getString (currentKey, currentDefaultValue));
+    }
+    private void applyPreferences ()
+    {
+        Utils.applyNightModePreference (this, mUseNightMode);
+        Utils.showHideBackground (mUsePicBackground, mBackground);
+
+        attemptSetTipPercentToDefault ();
+        attemptSetTaxAmountToDefault ();
+    }
+    private void attemptSetTipPercentToDefault ()
+    {
+    }
+
+    private void attemptSetTaxAmountToDefault ()
+    {
+    }
+
+
 }
