@@ -12,8 +12,14 @@
 settings.gradle
 .idea
 build.gradle
-gradlew.bat
+/gradlew.bat
 homework_1.iml
 gradle.properties
 app/libs/
+gradle/wrapper
+/build.gradle
+/gradlew
+/settings.gradle
+/gradle.properties
+
 
