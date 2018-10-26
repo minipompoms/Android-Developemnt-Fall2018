@@ -9,3 +9,11 @@
 /build
 /captures
 .externalNativeBuild
+settings.gradle
+.idea
+build.gradle
+gradlew.bat
+homework_1.iml
+gradle.properties
+app/libs/
+
