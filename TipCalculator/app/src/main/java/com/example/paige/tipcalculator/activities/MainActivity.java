@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.paige.tipcalculator.R;
 import com.example.paige.tipcalculator.classses.KeyPadController;
@@ -130,20 +131,39 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater ().inflate (R.menu.menu_main, menu);
         return true;
     }
+
+
+
     @Override
     public boolean onOptionsItemSelected (MenuItem item)
     {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId ();
+        int id = item.getItemId();
+        switch(id){
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.menu_settings:
+                showSettings();
+                return true;
+
+            case R.id.menu_calculate:
+                calculate(true);
+
+            case R.id.menu_clearField:
+                return true; //TODO
+
+           // case R.id.menu_resetAll:
+              //  resetAll();
         }
-
         return super.onOptionsItemSelected (item);
+    }
+
+    private void resetAll() {
+    }
+
+
+    private void showSettings() {
     }
 
 
@@ -229,4 +249,11 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    public void showAbout(MenuItem item) {
+        Toast.makeText(getApplicationContext(), "About...", Toast.LENGTH_LONG);
+
+        // Another way of doing this:
+        // Toast.makeText(MainActivity.this, "About...", Toast.LENGTH_LONG);
+
+    }
 }
