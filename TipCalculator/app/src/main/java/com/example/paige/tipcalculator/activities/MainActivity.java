@@ -153,8 +153,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.menu_clearField:
                 return true; //TODO
 
-           // case R.id.menu_resetAll:
-              //  resetAll();
+            case R.id.menu_resetAll:
+                resetAll();
         }
         return super.onOptionsItemSelected (item);
     }

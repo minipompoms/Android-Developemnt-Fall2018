@@ -10,5 +10,7 @@
     tools:showIn="@layout/activity_main">
 
     <include layout="@layout/multi_include_background_image" />
+    <include layout="@layout/main_include_all_content"/>
+
 
 </android.support.constraint.ConstraintLayout>
