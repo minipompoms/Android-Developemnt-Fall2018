@@ -1,5 +1,7 @@
 package com.example.paige.homework_3;
 
+import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,16 +38,39 @@ public class GridGameAdapter extends RecyclerView.Adapter<GridGameAdapter.ViewHo
         return mSquares[elementNumber];
     }
 
-    private void startGame() {
-        mWinningNumber = mGenerator.nextInt(mElements);
-        mSquares[mWinningNumber] = true;
+    public int getWinningNumber() {
+        return mWinningNumber;
+    }
 
+    private void endCurrentGame() {
+        mSquares[mWinningNumber] = false;
+    }
+
+    private void startGame() {
+        startGameWith(mGenerator.nextInt(mElements));
+    }
+
+    private void startGameWith(int winningNumber) {
+        mWinningNumber = winningNumber;
+        mSquares[mWinningNumber] = true;
     }
 
     public void startNewGame(){
-        mSquares[mWinningNumber] = false;
+        endCurrentGame();
         startGame();
     }
+
+
+    public void overwriteWinningNumber(int newWinningNumber){
+        if(newWinningNumber > 0 && newWinningNumber < mSquares.length){
+            endCurrentGame();
+            startGameWith(newWinningNumber);
+        }
+        else{
+            throw new IllegalArgumentException("Invalid winning number.");
+        }
+    }
+
     @Override
     //will be called automatically to construct the individual square
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -57,7 +82,10 @@ public class GridGameAdapter extends RecyclerView.Adapter<GridGameAdapter.ViewHo
     @Override
     //will be called automatically after above method to bind this square to the data source
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mButton.setText(Integer.toString(position));
+        String buttonNumber = String.valueOf(position);
+        //need both otherwise it crashes
+        holder.mButton.setTag(buttonNumber);
+        holder.mButton.setText(buttonNumber);
     }
 
     @Override
@@ -73,4 +101,8 @@ public class GridGameAdapter extends RecyclerView.Adapter<GridGameAdapter.ViewHo
             mButton = itemView.findViewById (R.id.button);
         }
     }
+
+
+
+
 }

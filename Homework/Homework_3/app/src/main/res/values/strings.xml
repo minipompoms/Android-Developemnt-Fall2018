@@ -3,4 +3,5 @@
     <string name="button_text">Button</string>
     <string name="guesses_text">Guesses taken: 0</string>
     <string name="winning_number_text">Please guess the winning number.</string>
+    <string name="menu_title">New Game</string>
 </resources>
