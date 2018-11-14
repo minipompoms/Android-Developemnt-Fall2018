@@ -142,7 +142,7 @@ public class Utils
         // These could all be chained as one long statement, if desired
         alertDialogBuilder.setTitle (strTitle);
         alertDialogBuilder.setMessage (strMsg);
-        alertDialogBuilder.setIcon (ContextCompat.getDrawable (context, R.drawable.ic_logo ));
+        alertDialogBuilder.setIcon (ContextCompat.getDrawable (context, R.drawable.ic_logo));
         alertDialogBuilder.setCancelable (true);
         return alertDialogBuilder;
     }

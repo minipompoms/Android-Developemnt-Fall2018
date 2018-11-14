@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardViewSemiTransparent"
+    tools:showIn="@layout/content_main"
+    >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/ll_margin"
+        android:orientation="vertical"
+        >
+
+        <!-- Subtotal row -->
+        <TableRow android:gravity="center">
+
+            <TextView
+                style="@style/fieldsTextView.instructions"
+                android:text="@string/subtotal"
+                />
+
+            <TextView
+                style="@style/fieldsTextView.symbol"
+                android:text="@string/dollar_sign"
+                />
+
+            <EditText
+                android:id="@+id/editText_subTotal"
+                android:hint="@string/hint_subtotal"
+                style="@style/fieldsEditText"
+                android:inputType="numberDecimal"
+                android:minEms="5"
+                />
+
+            <TextView
+                style="@style/fieldsTextView.symbol"
+                android:text="@string/space"
+                />
+
+            <Button
+                android:id="@+id/subtotal_down"
+                style="@style/arrowButtonStyle.down"
+                />
+
+            <Button
+                android:id="@+id/subtotal_up"
+                style="@style/arrowButtonStyle.up"
+                />
+
+        </TableRow>
+
+        <!-- Tip Percent row -->
+        <TableRow android:gravity="center">
+
+            <TextView
+                style="@style/fieldsTextView.instructions"
+                android:text="@string/tip_percent"
+                />
+
+            <TextView
+                style="@style/fieldsTextView.symbol"
+                android:text="@string/space"
+                />
+
+            <EditText
+                android:id="@+id/editText_tipPercent"
+                android:hint="@string/hint_tip_percent"
+                style="@style/fieldsEditText"
+                android:inputType="number"
+                />
+
+            <TextView
+                style="@style/fieldsTextView.symbol"
+                android:text="@string/percent_sign"
+                />
+
+            <Button
+                android:id="@+id/tipPercent_down"
+                style="@style/arrowButtonStyle.down"
+                />
+
+            <Button
+                android:id="@+id/tipPercent_up"
+                style="@style/arrowButtonStyle.up"
+                />
+
+        </TableRow>
+
+        <!-- Tax Amount row -->
+        <TableRow android:gravity="center">
+
+            <TextView
+                style="@style/fieldsTextView.instructions"
+                android:text="@string/tax_amount"
+                />
+
+            <TextView
+                style="@style/fieldsTextView.symbol"
+                android:text="@string/dollar_sign"
+                />
+
+            <EditText
+                android:id="@+id/editText_taxAmount"
+                android:hint="@string/hint_tax_amount"
+                style="@style/fieldsEditText"
+                android:inputType="numberDecimal"
+                />
+
+            <TextView
+                style="@style/fieldsTextView.symbol"
+                android:text="@string/space"
+                />
+
+            <Button
+                android:id="@+id/taxAmount_down"
+                style="@style/arrowButtonStyle.down"
+                />
+
+            <Button
+                android:id="@+id/taxAmount_up"
+                style="@style/arrowButtonStyle.up"
+                />
+
+        </TableRow>
+
+        <!-- Payers row -->
+        <TableRow android:gravity="center">
+
+            <TextView
+                style="@style/fieldsTextView.instructions"
+                android:text="@string/payers"
+                />
+
+            <TextView
+                style="@style/fieldsTextView.symbol"
+                android:text="@string/space"
+                />
+
+            <EditText
+                android:id="@+id/editText_payers"
+                android:hint="@string/hint_payers"
+                style="@style/fieldsEditText"
+                android:inputType="number"
+                />
+
+            <TextView
+                style="@style/fieldsTextView.symbol"
+                android:text="@string/space"
+                />
+
+            <Button
+                android:id="@+id/payers_down"
+                style="@style/arrowButtonStyle.down"
+                />
+
+            <Button
+                android:id="@+id/payers_up"
+                style="@style/arrowButtonStyle.up"
+                />
+
+        </TableRow>
+
+    </TableLayout>
+
+</android.support.v7.widget.CardView>

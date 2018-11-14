@@ -62,10 +62,10 @@
 
     <!-- The following two styles have no changes from their parents, but in case we do later... -->
     <!-- Needed even with DayNight to use a Dark ActionBar (with light text) even during day -->
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <!-- Not used when using DayNight since the popup overlay will automatically match day/night -->
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- This style is used for the about or other dialogs, to make them match the AppThemes -->
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
