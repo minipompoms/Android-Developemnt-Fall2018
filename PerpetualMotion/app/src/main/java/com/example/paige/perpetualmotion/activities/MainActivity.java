@@ -53,4 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void turn_action_discard(View view) {
+    }
+
+    public void turn_action_deal(View view) {
+    }
 }

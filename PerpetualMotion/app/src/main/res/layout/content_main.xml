@@ -9,8 +9,11 @@
     tools:context=".activities.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <include layout="@layout/main_include_board"/>
-    <include layout="@layout/main_include_button_bar"/>
-
+    <include layout="@layout/main_include_board"
+        android:id="@+id/card_piles"/>
+    <include layout="@layout/main_include_button_bar"
+        android:id="@+id/card_buttons"/>
+    <include layout="@layout/main_include_bottom_bar"
+        android:id="@+id/card_status_bar"/>
 
 </android.support.constraint.ConstraintLayout>
