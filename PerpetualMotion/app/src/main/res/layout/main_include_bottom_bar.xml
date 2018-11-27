@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.AppBarLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/content_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="?dividerVertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/tv_cards_remaining_to_discard"
+            style="@style/Base.TextAppearance.AppCompat.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="@string/cards_to_discard"
+            android:textSize="@dimen/button_font_size"
+            />
+        <TextView
+            android:id="@+id/tv_cards_in_deck"
+            style="@style/Base.TextAppearance.AppCompat.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="@string/in_deck"
+            android:textSize="@dimen/button_font_size"
+            />
+
+    </LinearLayout>
 
 </android.support.design.widget.AppBarLayout>
