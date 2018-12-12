@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,8 @@ import android.view.MenuItem;
 import com.example.paige.perpetualmotion.R;
 import com.example.paige.perpetualmotion.lib.CardPilesAdapter;
 import com.example.perpetual_motion.pm_game.IDGame;
+
+import java.util.EmptyStackException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -145,17 +148,113 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        //dismiss the snackbar if shown
+        switch (id){
+            //in a secondary activity this handles back button
+            // (android.R.id.home:)
+            // onBackPressed();
+            case R.id.action_about:
+                showAbout();
+                return true;
+            case R.id.action_toggle_auto_save:
+                toggleMenuItem(item);
+                mPrefUseAutoSave = item.isChecked();
+                return true;
+            case R.id.action_turn_show_error_messages:
+                toggleMenuItem(item);
+                mPrefUseAutoSave = item.isChecked();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+
         }
 
-        return super.onOptionsItemSelected(item);
+    }
+
+    private void dismissSnackbarIfShows(){
+    }
+
+    private void toggleMenuItem(MenuItem item) {
+        item.setChecked(item.isChecked());
+    }
+
+    private void showAbout() {
     }
 
     public void turn_action_discard(View view) {
+       if(mCurrentGame.isGameOver())
+           showSB_alreadyGameOver();
+       else{
+           dismissSnackbarIfShows();
+           final boolean[] checkedPiles = mAdapter.getCheckedPiles();
+           attemptDiscard(checkedPiles, getCountofChecks(checkedPiles));
+       }
+
+    }
+
+    private void attemptDiscard(boolean[] checkedPiles, int countOfChecks){
+        try{
+            discardOneOrTwo(checkedPiles, countOfChecks);
+            doUpdatesAfterGameStartOrTakingTurn();
+        }catch (EmptyStackException ese){
+            showSB(getString(R.string.error_cannot_discard_from_empty_pile));
+        }
+    }
+
+    private void showSB(String string) {
+    }
+
+    private void doUpdatesAfterGameStartOrTakingTurn() {
+    }
+
+    private void discardOneOrTwo(boolean[] checkedPiles, int countOfChecks) {
+        int pileTopToDiscard, secondPileTopToDiscard;
+        switch(countOfChecks){
+            case 1:
+                pileTopToDiscard = getCheckedItem(checkedPiles, 0);
+                mCurrentGame.discardOneLowestOfSameSuit(pileTopToDiscard);
+            case 2:
+                pileTopToDiscard = getCheckedItem(checkedPiles, 0);
+                secondPileTopToDiscard =  getCheckedItem(checkedPiles, 0);
+                mCurrentGame.discardBothOfSameRank(pileTopToDiscard, secondPileTopToDiscard);
+                break;
+                default:
+                    //show snackbar error one or two and how many checkboxes are currently checked
+
+        }
+    }
+
+    private int getCountofChecks(boolean[] checkedPiles) {
+        return 0;
+    }
+
+    private void showSB_alreadyGameOver() {
     }
 
     public void turn_action_deal(View view) {
     }
+
+    private final CardPilesAdapter.OIClickListener listener = new CardPilesAdapter.OIClickListener() {
+        @Override
+        public void onItemClick(int position, View v) {
+            try{
+                if (mCurrentGame.getNumberOfCardsInStackAtPosition(position) > 0) {
+
+                    if(mCurrentGame.isGameOver()){
+
+                    }
+                    else {
+                        mAdapter.toggleCheck(position);
+                    }
+                }
+        }
+        catch (Exception e){
+                Log.d("STACK_CRASH", e.getMessage());
+        }
+    }
+
+    };
+
+
 }
