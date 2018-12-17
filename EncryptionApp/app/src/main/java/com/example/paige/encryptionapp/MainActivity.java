@@ -1,4 +1,4 @@
-package com.example.paige.fileencryptionapp;
+package com.example.paige.encryptionapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
