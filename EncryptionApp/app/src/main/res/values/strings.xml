@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">EncryptionApp</string>
+    <string name="app_name">File Encryption</string>
+    <string name="title_e">Encrypt</string>
+    <string name="title_d">Decrypt</string>
+    <string name="title_dir">File Directory</string>
+
+
+    <string name="blank_fragment">...</string>
+
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="button_start_encrypt">Encrypt</string>
+    <string name="button_start_decrypt">Decrypt</string>
+    <string name="et_hint">16 character length minimum</string>
+    <string name="button_select_file">Select a file</string>
+    <string name="tv_select_file">File: </string>
+    <string name="tv_enter_key">Enter key: </string>
+    <string name="snackbar_close">Close App?</string>
+    <string name="snackbar_close_btn">CLOSE</string>
+    <string name="button_start">Start</string>
+
+
 </resources>
