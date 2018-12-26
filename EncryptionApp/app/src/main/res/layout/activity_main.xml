@@ -10,6 +10,11 @@
     tools:context=".MainActivity">
 
 
+    <ImageView
+        android:id="@+id/backgroundGif"
+        android:layout_width="match_parent"
+        android:layout_height="450dp" />
+
 
     <FrameLayout
         android:id="@+id/content"
@@ -27,7 +32,10 @@
         android:background="@color/colorBackground"
         app:itemIconTint="@color/colorAccent"
         app:itemTextColor="@color/colorAccent"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/navigation"
+        />
+
+
 
 
 </LinearLayout>
