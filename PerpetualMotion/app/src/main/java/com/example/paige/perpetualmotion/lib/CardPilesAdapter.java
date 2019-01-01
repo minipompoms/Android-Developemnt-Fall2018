@@ -84,21 +84,23 @@ public class CardPilesAdapter extends RecyclerView.Adapter<CardPilesAdapter.View
 
     private void populateAndShowInnerCard (ViewHolder holder, int position)
     {
-        holder.tv_pile_card_rank_top.setTextColor (mPILE_TOPS[position].getSuit ().getColor ());
+        Card currentCard = mPILE_TOPS[position];
+        int currentColor = currentCard.getSuit().getColor();
+        holder.tv_pile_card_rank_top.setTextColor (currentColor);
+
         holder.tv_pile_card_rank_top.setText (
                 String.format (
                         Locale.getDefault (), "%d", mPILE_TOPS[position].getRank ().getValue ()));
 
-        holder.tv_pile_card_suit_center.setTextColor (mPILE_TOPS[position].getSuit ().getColor ());
+        holder.tv_pile_card_suit_center.setTextColor (currentColor);
         holder.tv_pile_card_suit_center.setText (
                 Character.toString (mPILE_TOPS[position].getSuit ().getCharacter ()));
 
-        holder.tv_pile_card_name_bottom.setTextColor (mPILE_TOPS[position].getSuit ().getColor ());
+        holder.tv_pile_card_name_bottom.setTextColor (currentColor);
         holder.tv_pile_card_name_bottom.setText (
-                mPILE_TOPS[position].getRank ().toString ());
+                currentCard.getRank ().toString ());
 
         holder.cb_pile_card_checkbox.setChecked (mCHECKED_PILES[position]);
-
         holder.cv_pile_inner_Card.setVisibility (View.VISIBLE);
     }
 
