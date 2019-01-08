@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">File Encryption</string>
+    <string name="app_name">File Encryption App</string>
     <string name="title_e">Encrypt</string>
     <string name="title_d">Decrypt</string>
     <string name="title_dir">File Directory</string>
@@ -17,6 +17,7 @@
     <string name="snackbar_close">Close App?</string>
     <string name="snackbar_close_btn">CLOSE</string>
     <string name="button_start">Start</string>
-
+    <string name="about_message">Encryption App created by Paige Kohn for MCO451</string>
+    <string name="button_about">About</string>
 
 </resources>

@@ -1,10 +1,10 @@
 package com.example.paige.encryptionapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -21,18 +21,17 @@ import java.util.List;
 import static com.example.paige.encryptionapp.FilesFragment.TAG;
 
 public class DirectoryFragment extends Fragment implements View.OnClickListener,
-        FilesFragment.OnFileClickedListener, FilesFragment.OnDirectoryClickedListener  {
+        FilesFragment.OnFileClickedListener, FilesFragment.OnDirectoryClickedListener {
 
     private static final String KEY_PATHS = "key_paths";
 
     private List<File> mDirectories = new ArrayList<>();
     private ViewPager mViewPager;
     private Button mBackButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -40,7 +39,6 @@ public class DirectoryFragment extends Fragment implements View.OnClickListener,
         View v = inflater.inflate(R.layout.fragment_directory, container, false);
         mDirectories.add(Environment.getExternalStorageDirectory());
         mViewPager = v.findViewById(R.id.viewPager);
-
         mBackButton = v.findViewById(R.id.back_button);
         return v;
     }
@@ -48,28 +46,26 @@ public class DirectoryFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-
-            mViewPager.setAdapter(new DirectoryAdapter(getFragmentManager(), mDirectories,
-                    this, this));
-
-            mBackButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    onBackPressed();
-                }
+        super.onActivityCreated(savedInstanceState);
+        mViewPager.setAdapter(new DirectoryAdapter(getFragmentManager(), mDirectories,
+                this, this));
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onBackPressed();
+            }
 
         });
 
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         ArrayList<String> paths = convertFilesToStrings(mDirectories);
         outState.putStringArrayList(KEY_PATHS, paths);
         super.onSaveInstanceState(outState);
-
     }
-            @Override
+
+    @Override
     public void onClick(View v) {
     }
 
@@ -77,12 +73,12 @@ public class DirectoryFragment extends Fragment implements View.OnClickListener,
     public void OnFileClicked(File file) {
         Log.d("PATHS", file.getAbsoluteFile().getAbsolutePath());
 
+        try {
+            startActivity(FileUtil.createOpenFileIntent(file));
 
-            try {
-                startActivity(FileUtil.createOpenFileIntent(file));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -101,7 +97,7 @@ public class DirectoryFragment extends Fragment implements View.OnClickListener,
 
     private static ArrayList<String> convertFilesToStrings(List<File> files) {
         if (files == null) {
-            throw new IllegalArgumentException("Argument 'files' cannot be null.");
+            throw new IllegalArgumentException("Files cannot be null. ");
         }
         ArrayList<String> paths = new ArrayList<>();
         for (File file : files) {
@@ -112,6 +108,6 @@ public class DirectoryFragment extends Fragment implements View.OnClickListener,
 
 
     public void onBackPressed() {
-        mViewPager.setCurrentItem(mViewPager.getCurrentItem()-1);
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
     }
 }

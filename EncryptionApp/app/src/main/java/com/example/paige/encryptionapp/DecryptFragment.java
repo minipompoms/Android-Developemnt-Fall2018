@@ -2,7 +2,6 @@ package com.example.paige.encryptionapp;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,14 +28,14 @@ import java.util.regex.Pattern;
 
 
 public class DecryptFragment extends Fragment {
-    FilePickerDialog mDialog;
-    String path;
-    DataHelper db;
+    private FilePickerDialog mDialog;
+    private String path;
+    private EncryptionDataHelper db;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        db = new DataHelper(getContext());
+        db = new EncryptionDataHelper(getContext());
         return inflater.inflate(R.layout.fragment_decrypt, container, false);
     }
 
@@ -55,7 +54,7 @@ public class DecryptFragment extends Fragment {
             mSelectButton = view.findViewById(R.id.button_select_file);
             mDecryptButton = view.findViewById(R.id.button_decrypt);
 
-            key =  view.findViewById(R.id.et_decrypt_key);
+            key = view.findViewById(R.id.et_decrypt_key);
             p = view.findViewById(R.id.tv_decrypt_line);
 
             mSelectButton.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +67,7 @@ public class DecryptFragment extends Fragment {
                     properties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
                     properties.offset = new File(DialogConfigs.DEFAULT_DIR);
                     properties.extensions = null;
-                    mDialog = new FilePickerDialog(getActivity(),properties);
+                    mDialog = new FilePickerDialog(getActivity(), properties);
                     mDialog.setTitle("Select a File:");
 
                     mDialog.setDialogSelectionListener(new DialogSelectionListener() {
@@ -86,40 +85,39 @@ public class DecryptFragment extends Fragment {
             mDecryptButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     String pass = key.getText().toString().trim();
-                    if(TextUtils.isEmpty(pass) || pass.length() < 16 || pass.length() > 16)
-                    {
-                        key.setError("Key must contain 16 characters");
+                    if (TextUtils.isEmpty(pass) || pass.length() < 16 || pass.length() > 16) {
+                        key.setError("Key must contain at least 16 characters");
                         return;
                     }
-                    if(TextUtils.isEmpty(path)){
-                        Toast.makeText(getActivity(), "Please choose the File!", Toast.LENGTH_LONG).show();
+                    if (TextUtils.isEmpty(path)) {
+                        Toast.makeText(getActivity(), "Please choose the File:", Toast.LENGTH_LONG).show();
                         return;
                     }
                     if (key.getText().toString().length() != 0) {
                         String keyc = key.getText().toString();
                         File encryptedFile = new File(path);//new File("/storage"+path);
                         String correctFileName;
-                        if(Pattern.compile(Pattern.quote("encrypted_"), Pattern.CASE_INSENSITIVE).matcher(encryptedFile.getName()).find()) {
+                        if (Pattern.compile(Pattern.quote("enc_"), Pattern.CASE_INSENSITIVE).matcher(encryptedFile.getName()).find()) {
 
-                            correctFileName = encryptedFile.getName().replace("encrypted_", "");
-                        }else{
-                            correctFileName=encryptedFile.getName();
+                            correctFileName = encryptedFile.getName().replace("enc_", "");
+                        } else {
+                            correctFileName = encryptedFile.getName();
                         }
-                        File decryptedFile = new File(encryptedFile.getParent()+"/decrypted_"+correctFileName);
+                        File decryptedFile = new File(encryptedFile.getParent() + "/dec_" + correctFileName);
                         int error;
                         try {
                             CryptoUtils.decrypt(keyc, encryptedFile, decryptedFile);
                             error = 0;
-                            db.insertDataHistory(encryptedFile.getName(),keyc);
+                            db.insertDataHistory(encryptedFile.getName(), keyc);
                         } catch (CryptoException ex) {
-                            Toast.makeText(getActivity(), "Wrong Key!!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Incorrect Key Entered", Toast.LENGTH_LONG).show();
                             error = 1;
                         }
-                        if(error == 0){
+                        if (error == 0) {
                             Toast.makeText(getActivity(), "Successfully decrypted!!", Toast.LENGTH_LONG).show();
                         }
                     } else {
-                        Toast.makeText(getActivity(), "Please Enter the key!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Please Enter the key:", Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -132,12 +130,11 @@ public class DecryptFragment extends Fragment {
         switch (requestCode) {
             case FilePickerDialog.EXTERNAL_READ_PERMISSION_GRANT: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(mDialog!=null) {
-                       mDialog.show();
+                    if (mDialog != null) {
+                        mDialog.show();
                     }
-                }
-                else {
-                    Toast.makeText(getActivity(),"Permission is Required for getting list of files",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "You do not have permission to access the files", Toast.LENGTH_SHORT).show();
                 }
             }
         }

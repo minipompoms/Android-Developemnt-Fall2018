@@ -1,11 +1,8 @@
 package com.example.paige.encryptionapp;
  
-public class CryptoException extends Exception {
- 
-    public CryptoException() {
-    }
- 
-    public CryptoException(String message, Throwable throwable) {
+class CryptoException extends Exception {
+
+    CryptoException(String message, Throwable throwable) {
         super(message, throwable);
     }
 }

@@ -1,11 +1,11 @@
 package com.example.paige.encryptionapp;
 
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -35,9 +35,12 @@ public class FileUtil {
     }
 
 
+
+
     protected static Intent createOpenFileIntent(File file) throws IOException {
         Uri uri = Uri.fromFile(file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         Log.d("PATH", MimeTypeMap.getFileExtensionFromUrl(file.toString()));
         if (isDocument(file)) {
             intent.setDataAndType(uri, "application/msword");

@@ -10,17 +10,29 @@
     tools:context=".MainActivity">
 
 
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/about_message"
+        android:textColor="@color/colorTextLight"
+        />
+
+
     <ImageView
         android:id="@+id/backgroundGif"
         android:layout_width="match_parent"
-        android:layout_height="450dp" />
-
+        android:layout_height="455dp" />
 
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+
 
 
     <android.support.design.widget.BottomNavigationView
@@ -32,10 +44,6 @@
         android:background="@color/colorBackground"
         app:itemIconTint="@color/colorAccent"
         app:itemTextColor="@color/colorAccent"
-        app:menu="@menu/navigation"
-        />
-
-
-
+        app:menu="@menu/navigation" />
 
 </LinearLayout>

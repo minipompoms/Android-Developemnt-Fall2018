@@ -26,7 +26,7 @@ public class FilesFragment extends Fragment implements FileAdapter.OnItemClicked
     private static final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 34783;
     private static final String KEY_DIRECTORY_PATH = "key_directory_path";
 
-    private FileAdapter mFileAdapter;
+    protected FileAdapter mFileAdapter;
     private FilesFragment.OnFileClickedListener mOnFileClickedListener;
     private OnDirectoryClickedListener mOnDirectoryClickedListener;
     private boolean mRestored = true;
@@ -62,7 +62,6 @@ public class FilesFragment extends Fragment implements FileAdapter.OnItemClicked
 
 
     }
-
 
 
     @Override
@@ -143,7 +142,7 @@ public class FilesFragment extends Fragment implements FileAdapter.OnItemClicked
             Log.d(TAG, "External storage is not readable.");
             return;
         }
-        RecyclerView recyclerView =  getView().findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = getView().findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(mFileAdapter);
 

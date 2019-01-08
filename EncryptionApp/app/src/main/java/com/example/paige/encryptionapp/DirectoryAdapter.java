@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.List;
 
 class DirectoryAdapter extends FragmentStatePagerAdapter {
+
     private List<File> mDirectory;
     private FilesFragment.OnDirectoryClickedListener mOnDirectoryClickedListener;
     private FilesFragment.OnFileClickedListener mOnFileClickedListener;
@@ -41,7 +42,7 @@ class DirectoryAdapter extends FragmentStatePagerAdapter {
         return POSITION_NONE;
     }
 
-    protected void setDirectories(List<File> directory) {
+    void setDirectories(List<File> directory) {
         if (directory == null) {
             throw new IllegalArgumentException("Directory cannot be null");
         }

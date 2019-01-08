@@ -24,14 +24,14 @@ import java.io.File;
 import java.util.regex.Pattern;
 
 public class EncryptFragment extends Fragment {
-    FilePickerDialog dialog;
-    String path;
-    DataHelper db;
+    protected FilePickerDialog dialog;
+    private String path;
+    protected EncryptionDataHelper db;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        db = new DataHelper(getContext());
+        db = new EncryptionDataHelper(getContext());
 
         return inflater.inflate(R.layout.fragment_encrypt, container, false);
     }
@@ -51,8 +51,8 @@ public class EncryptFragment extends Fragment {
             mSelectButton = view.findViewById(R.id.button_select_file);
             mEncryptButton = view.findViewById(R.id.button_encrypt);
 
-            p =  view.findViewById(R.id.tv_encrypt_line);
-            key =  view.findViewById(R.id.et_encrypt_key);
+            p = view.findViewById(R.id.tv_encrypt_line);
+            key = view.findViewById(R.id.et_encrypt_key);
 
 
             mSelectButton.setOnClickListener(new View.OnClickListener() {
@@ -84,11 +84,11 @@ public class EncryptFragment extends Fragment {
                 public void onClick(View v) {
                     String pass = key.getText().toString().trim();
                     if (TextUtils.isEmpty(pass) || pass.length() < 16 || pass.length() > 16) {
-                        key.setError("Key must be 16 characters");
+                        key.setError("Key must be at least 16 characters");
                         return;
                     }
                     if (TextUtils.isEmpty(path)) {
-                        Toast.makeText(getActivity(), "Please choose a File!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Please choose a File:", Toast.LENGTH_LONG).show();
                         return;
                     }
 
@@ -96,32 +96,30 @@ public class EncryptFragment extends Fragment {
                         String keyc = key.getText().toString();
                         File inputFile = new File(path);
                         String correctFileName;
-                        if (Pattern.compile(Pattern.quote("decrypted_"), Pattern.CASE_INSENSITIVE).matcher(inputFile.getName()).find()) {
+                        if (Pattern.compile(Pattern.quote("dec_"), Pattern.CASE_INSENSITIVE).matcher(inputFile.getName()).find()) {
 
-                            correctFileName = inputFile.getName().replace("decrypted_", "");
+                            correctFileName = inputFile.getName().replace("dec_", "");
                         } else {
                             correctFileName = inputFile.getName();
                         }
 
-                        File encryptedFile = new File(inputFile.getParent() + "/encrypted_" + correctFileName);
+                        File encryptedFile = new File(inputFile.getParent() + "/enc_" + correctFileName);
                         int error = 1;
                         try {
                             CryptoUtils.encrypt(keyc, inputFile, encryptedFile);
                             error = 0;
                             db.insertDataHistory(inputFile.getName(), keyc);
                         } catch (CryptoException ex) {
-                            Toast.makeText(getActivity(), "Wrong Key!!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Incorrect Key", Toast.LENGTH_LONG).show();
                         }
                         if (error == 0) {
-                            Toast.makeText(getActivity(), "File encrypted successfully", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "File encrypted successfully!", Toast.LENGTH_LONG).show();
                         }
                     } else {
-                        Toast.makeText(getActivity(), "Please Enter the key.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Please Enter the key: ", Toast.LENGTH_LONG).show();
                     }
                 }
             });
-
-
         }
     }
 
@@ -134,12 +132,10 @@ public class EncryptFragment extends Fragment {
                         dialog.show();
                     }
                 } else {
-                    Toast.makeText(getActivity(), "Permission is Required for getting list of files", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "You do not have permission to access the files", Toast.LENGTH_SHORT).show();
                 }
             }
 
         }
     }
-
-
 }

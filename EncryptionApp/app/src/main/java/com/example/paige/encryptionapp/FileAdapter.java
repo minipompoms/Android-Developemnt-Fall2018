@@ -56,17 +56,14 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
         return mDirectory.listFiles().length;
     }
 
-    public File getDirectory() {
+    File getDirectory() {
         return mDirectory;
     }
 
     private void setDirectory(File dir) {
-        if (dir == null) {
-            throw new IllegalArgumentException("Argument 'dir' cannot be null.");
-        }
-        if (!dir.isDirectory()) {
+        if (dir == null) throw new IllegalArgumentException("Argument 'dir' cannot be null.");
+        if (!dir.isDirectory())
             throw new IllegalArgumentException("Argument 'dir' must be a directory.");
-        }
         mDirectory = dir;
     }
 
@@ -84,7 +81,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
         ViewHolder(View view) {
             super(view);
             mTextView = view.findViewById(R.id.filename);
-            mIcon =  view.findViewById(R.id.icon);
+            mIcon = view.findViewById(R.id.icon);
         }
     }
 }

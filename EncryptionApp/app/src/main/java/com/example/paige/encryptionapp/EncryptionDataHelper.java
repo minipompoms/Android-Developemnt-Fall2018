@@ -1,17 +1,17 @@
 package com.example.paige.encryptionapp;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class DataHelper extends SQLiteOpenHelper {
+public class EncryptionDataHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "assets.db";
-    private static final int DATABASE_VERSION = 1;
-    public DataHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    private static final int VERSION = 1;
+
+    public EncryptionDataHelper(Context context) {
+        super(context, DATABASE_NAME, null, VERSION);
     }
 
     @Override
@@ -29,10 +29,9 @@ public class DataHelper extends SQLiteOpenHelper {
     }
 
 
-
-    public void insertDataHistory(String filename, String key){
+    void insertDataHistory(String filename, String key) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "INSERT INTO history(filename, kunci) VALUES ('"+filename+"','"+key+"');";
+        String sql = "INSERT INTO history(filename, kunci) VALUES ('" + filename + "','" + key + "');";
         db.execSQL(sql);
     }
 

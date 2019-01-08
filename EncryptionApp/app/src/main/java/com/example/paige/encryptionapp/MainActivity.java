@@ -1,14 +1,8 @@
 package com.example.paige.encryptionapp;
 
-
-
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
-import android.os.Environment;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -16,24 +10,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static android.net.http.SslCertificate.restoreState;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_encrypt:
+                    changeDimensions();
                     switchFragment(new EncryptFragment());
                     return true;
                 case R.id.navigation_decrypt:
@@ -74,33 +58,29 @@ public class MainActivity extends AppCompatActivity {
 
         String[] permissions = {"android.permission.WRITE_EXTERNAL_STORAGE"};
         requestPermissions(permissions, REQUEST_CODE);
-
-        BottomNavigationView navigation =  findViewById(R.id.navigation);
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         loadImage();
+        showAbout();
     }
 
 
-   public void loadImage(){
+    public void loadImage() {
+        mImageView = findViewById(R.id.backgroundGif);
+        String imageUrl = getURLForResource(R.drawable.background_main);
+        Glide.with(this)
+                .load(imageUrl)
+                .into(mImageView);
+    }
 
-        mImageView = (ImageView) findViewById(R.id.backgroundGif);
-       String imageUrl = getURLForResource(R.drawable.background_main);
-
-       Glide.with(this)
-               .load(imageUrl)
-               .into(mImageView);
-
-
-
-
-   }
-
-    public String getURLForResource (int resourceId) {
-        return Uri.parse("android.resource://"+R.class.getPackage().getName()+"/" +resourceId).toString();
+    public String getURLForResource(int resourceId) {
+        return Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + resourceId).toString();
     }
 
 
-    public void changeDimensions(){
+    public void changeDimensions() {
         mImageView.getLayoutParams().height = 0;
         mImageView.getLayoutParams().width = 0;
     }
@@ -141,6 +121,15 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "PERMISSION_DENIED", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void showAbout() {
+        final TextView textViewAbout = findViewById(R.id.tv_about);
+        textViewAbout.postDelayed(new Runnable() {
+            public void run() {
+                textViewAbout.setVisibility(View.INVISIBLE);
+            }
+        }, 5000);
     }
 
 
