@@ -1,4 +1,6 @@
-<resources>
+<resources
+    xmlns:app="urn:oasis:names:tc:xliff:document:1.2"
+    >
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -14,6 +16,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/colorTextLight</item>
         <item name="android:backgroundTint">@color/colorBackground</item>
+
 
     </style>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

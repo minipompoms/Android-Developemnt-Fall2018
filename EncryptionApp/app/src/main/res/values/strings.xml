@@ -19,5 +19,7 @@
     <string name="button_start">Start</string>
     <string name="about_message">Encryption App created by Paige Kohn for MCO451</string>
     <string name="button_about">About</string>
+    <string name="iv_home_screen">home_screen</string>
+    <string name="menu_action_about">About</string>
 
 </resources>

@@ -10,22 +10,25 @@
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/tv_about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp"
-        android:text="@string/about_message"
-        android:textColor="@color/colorTextLight"
-        />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_dialog_info"
+        android:onClick="showAbout"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:layout_marginStart="340dp"/>
 
 
     <ImageView
         android:id="@+id/backgroundGif"
         android:layout_width="match_parent"
-        android:layout_height="455dp" />
+        android:layout_height="400dp"
+        android:baselineAlignBottom="false"
+        android:contentDescription="@string/iv_home_screen"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"/>
 
     <FrameLayout
         android:id="@+id/content"

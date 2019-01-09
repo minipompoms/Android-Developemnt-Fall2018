@@ -9,7 +9,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_directory:
                     changeDimensions();
                     switchFragment(new DirectoryFragment());
-
+                    return true;
             }
             return false;
         }
@@ -63,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         loadImage();
-        showAbout();
     }
 
 
@@ -124,13 +125,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAbout() {
-        final TextView textViewAbout = findViewById(R.id.tv_about);
+
+ /*       final TextView textViewAbout = findViewById(R.id.tv_about);
         textViewAbout.postDelayed(new Runnable() {
             public void run() {
                 textViewAbout.setVisibility(View.INVISIBLE);
             }
-        }, 5000);
+        }, 5000);*/
     }
 
 
+    public void showAbout(View view) {
+        Utils.showInfoDialog(MainActivity.this, R.string.app_name, R.string.about_message);
+
+    }
 }
